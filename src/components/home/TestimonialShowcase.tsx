@@ -1,8 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-
 const testimonials = [
   {
     quote: "The interface is so intuitive, it almost feels like it can read my mind. A true paradigm shift.",
@@ -50,7 +47,7 @@ export function TestimonialShowcase() {
             >
               <div className="flex flex-col h-full justify-between gap-8">
                 <p className="text-lg md:text-xl text-white/80 leading-relaxed font-medium">
-                  "{testimonial.quote}"
+                  &quot;{testimonial.quote}&quot;
                 </p>
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">

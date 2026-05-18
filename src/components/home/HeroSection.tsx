@@ -6,8 +6,10 @@ import { Sphere, MeshDistortMaterial } from "@react-three/drei";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
+import * as THREE from "three";
+
 function AnimatedSphere() {
-  const meshRef = useRef<any>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
     if (meshRef.current) {

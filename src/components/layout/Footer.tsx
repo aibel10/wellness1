@@ -9,7 +9,7 @@ export function Footer() {
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="mb-24 flex flex-col md:flex-row items-start justify-between gap-12">
           <h2 className="text-5xl md:text-8xl font-bold tracking-tighter leading-none">
-            Let's build <br />
+            Let&apos;s build <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">the future.</span>
           </h2>
           <div className="flex items-center gap-4 group cursor-pointer">

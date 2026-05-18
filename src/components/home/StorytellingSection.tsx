@@ -14,7 +14,7 @@ export function StorytellingSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      textRefs.current.forEach((text, i) => {
+      textRefs.current.forEach((text) => {
         if (!text) return;
         
         gsap.fromTo(
