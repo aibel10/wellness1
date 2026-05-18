@@ -1,24 +1,333 @@
 "use client";
 
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { HeroSection } from "@/components/home/HeroSection";
-import { StorytellingSection } from "@/components/home/StorytellingSection";
-import { BentoGridSection } from "@/components/home/BentoGridSection";
-import { TestimonialShowcase } from "@/components/home/TestimonialShowcase";
-import { AdvancedFeaturesSection } from "@/components/home/AdvancedFeaturesSection";
+import { StudentTestimonialsSection } from "@/components/home/StudentTestimonialsSection";
+import { Leaf, Wind, Activity, Brain, ArrowRight, Heart } from "lucide-react";
 
 export function HomePage() {
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+
+  const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  const staggerContainer: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-[#050505]">
+    <div className="min-h-screen flex flex-col bg-cream text-dark font-sans selection:bg-sage/30">
       <Navbar />
-      
+
       <main className="flex-1">
-        <HeroSection />
-        <StorytellingSection />
-        <BentoGridSection />
-        <AdvancedFeaturesSection />
-        <TestimonialShowcase />
+        {/* HERO SECTION */}
+        <section className="relative min-h-[80vh] md:min-h-screen w-full flex items-center justify-center overflow-hidden bg-white pt-20 pb-12 md:pt-32 md:pb-20">
+          <motion.div style={{ y }} className="absolute inset-0 z-0">
+            <Image 
+              src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000&auto=format&fit=crop" 
+              alt="Wellness Lifestyle" 
+              fill 
+              className="object-cover opacity-90"
+              priority
+            />
+            <div className="absolute inset-0 bg-cream/40 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-t from-cream via-transparent to-transparent" />
+          </motion.div>
+
+          <div className="p-4 max-w-4xl mx-auto relative z-10 w-full flex flex-col items-center mt-2 md:mt-4">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="inline-flex items-center rounded-full border border-sage/30 bg-white/50 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-sage mb-8 shadow-sm"
+            >
+              <Heart className="w-4 h-4 mr-2" />
+              Holistic Wellness Coaching
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-5xl md:text-7xl font-serif font-semibold text-center tracking-tight text-dark mb-6 leading-tight"
+            >
+              Transform Your <br className="hidden md:block" />
+              <span className="italic text-sage">Mind, Body & Lifestyle</span> Naturally
+            </motion.h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg md:text-xl text-dark/90 max-w-2xl text-center mx-auto leading-relaxed font-medium"
+            >
+              Helping busy professionals achieve balance, energy, confidence, and sustainable wellness through personalized coaching.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="mt-6 md:mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center"
+            >
+              <Link href="#contact" className="inline-flex items-center justify-center rounded-full bg-sage text-white hover:bg-sage/90 px-8 py-4 text-base font-medium shadow-xl shadow-sage/20 transition-all hover:-translate-y-1">
+                Book Free Consultation
+              </Link>
+              <Link href="#services" className="inline-flex items-center justify-center rounded-full text-dark border border-dark/10 hover:bg-beige/30 bg-white/50 backdrop-blur-md px-8 py-4 text-base font-medium transition-all hover:-translate-y-1">
+                Explore Services
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* FEATURED SERVICES */}
+        <section id="services" className="scroll-mt-24 pt-4 pb-8 md:pt-8 md:pb-14 bg-cream relative">
+          <div className="container px-6 max-w-screen-xl mx-auto">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeUp}
+              className="text-center mb-6 md:mb-8"
+            >
+              <h2 className="text-sm font-semibold tracking-widest uppercase text-sage mb-4">Core Focus Areas</h2>
+              <h3 className="text-4xl md:text-5xl font-serif text-dark font-semibold">Comprehensive Wellness</h3>
+            </motion.div>
+            
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+              className="flex flex-col gap-6 max-w-4xl mx-auto"
+            >
+              {[
+                { title: "Nutrition Coaching", icon: Leaf, desc: "Intuitive eating strategies to nourish your body and build sustainable, healthy habits." },
+                { title: "Mindfulness & Meditation", icon: Wind, desc: "Techniques to regulate your nervous system, reduce anxiety, and find deep inner stillness." },
+                { title: "Fitness & Lifestyle", icon: Activity, desc: "Mindful movement practices designed to build functional strength and improve energy." },
+                { title: "Stress Management", icon: Brain, desc: "Actionable protocols for ambitious professionals to recover from chronic stress and burnout." }
+              ].map((svc, i) => (
+                <motion.div key={i} variants={fadeUp}>
+                  <div className="flex flex-col md:flex-row items-start md:items-center gap-6 p-6 md:p-8 bg-white/40 backdrop-blur-md border border-white/60 hover:bg-white/60 hover:border-sage/40 hover:shadow-[0_20px_50px_rgba(138,163,153,0.15)] shadow-sm transition-all duration-500 rounded-[2rem] group">
+                    <div className="w-16 h-16 rounded-2xl bg-white/60 border border-white/80 flex items-center justify-center shrink-0 group-hover:bg-sage/10 group-hover:border-sage/20 transition-all duration-300">
+                      <svc.icon className="w-8 h-8 text-sage" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-xl md:text-2xl font-serif font-semibold text-dark mb-1">{svc.title}</h4>
+                      <p className="text-dark/80 font-normal leading-relaxed text-sm md:text-base">{svc.desc}</p>
+                    </div>
+                    <div className="shrink-0 mt-2 md:mt-0 self-end md:self-center">
+                      <ArrowRight className="w-6 h-6 text-sage/40 group-hover:text-sage group-hover:translate-x-1.5 transition-all" />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ABOUT PREVIEW / MEET OUR COACHES */}
+        <section id="about" className="scroll-mt-24 pt-4 pb-8 md:pt-8 md:pb-14 bg-white relative overflow-hidden">
+          <div className="container px-6 max-w-screen-xl mx-auto">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              className="text-center mb-6 md:mb-8"
+            >
+              <h2 className="text-sm font-semibold tracking-widest uppercase text-sage mb-4">Expert Guidance</h2>
+              <h3 className="text-4xl md:text-5xl font-serif font-semibold text-dark">Meet Our Wellness Coaches</h3>
+              <p className="text-dark/70 max-w-xl mx-auto mt-4 text-sm md:text-base font-normal leading-relaxed">
+                Our multidisciplinary team of certified specialists is dedicated to guiding you back to your natural state of physical and mental vitality.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12"
+            >
+              {[
+                {
+                  name: "Dr. Evelyn Harper",
+                  role: "Founder & Lead Holistic Coach",
+                  img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop",
+                  bio: "Dr. Evelyn specializes in metabolic health, intuitive nutrition, and hormone balance. She helps high-performing professionals optimize energy levels naturally.",
+                  specialties: ["Metabolic Health", "Nutrition", "Hormones"]
+                },
+                {
+                  name: "Marcus Vance",
+                  role: "Mindfulness & Nervous System Coach",
+                  img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=300&auto=format&fit=crop",
+                  bio: "Marcus teaches evidence-based breathwork and neuro-association protocols to reduce anxiety, combat burnout, and establish emotional resilience.",
+                  specialties: ["Breathwork", "Burnout Recovery", "Resilience"]
+                },
+                {
+                  name: "Clara Thorne",
+                  role: "Movement Therapy & Somatic Coach",
+                  img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop",
+                  bio: "Clara focuses on somatic experiencing and flow-state movement programs that heal physical tension, correct posture, and encourage fluid muscle recovery.",
+                  specialties: ["Somatic Movement", "Posture", "Flexibility"]
+                },
+                {
+                  name: "Dr. Adrian Sterling",
+                  role: "Sleep Science & Rest Expert",
+                  img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
+                  bio: "Dr. Adrian uses chronobiology and circadian optimization models to restore natural sleep patterns, enabling sustainable daily alertness.",
+                  specialties: ["Circadian Rhythm", "Sleep Science", "Rest"]
+                }
+              ].map((coach, i) => (
+                <motion.div key={i} variants={fadeUp}>
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 bg-cream/30 border border-beige hover:border-sage/40 hover:shadow-xl hover:shadow-sage/5 transition-all duration-300 rounded-[2.5rem]">
+                    {/* Small Elegant Round Photo */}
+                    <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden shrink-0 relative border-2 border-sage shadow-md">
+                      <Image 
+                        src={coach.img} 
+                        alt={coach.name} 
+                        fill 
+                        className="object-cover"
+                      />
+                    </div>
+                    
+                    {/* Details */}
+                    <div className="flex-1 text-center sm:text-left">
+                      <span className="text-[10px] tracking-wider uppercase font-semibold text-sage">{coach.role}</span>
+                      <h4 className="text-xl font-serif font-bold text-dark mt-1 mb-2">{coach.name}</h4>
+                      <p className="text-dark/80 text-sm font-normal leading-relaxed mb-4">{coach.bio}</p>
+                      
+                      {/* Specialties Badges */}
+                      <div className="flex flex-wrap justify-center sm:justify-start gap-1.5">
+                        {coach.specialties.map((spec, idx) => (
+                          <span key={idx} className="text-[10px] bg-white border border-beige text-dark/70 font-medium px-2.5 py-1 rounded-full">
+                            {spec}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        <StudentTestimonialsSection />
+
+        {/* BLOG PREVIEW */}
+        <section id="blog" className="scroll-mt-24 pt-4 pb-8 md:pt-8 md:pb-14 bg-cream">
+          <div className="container px-6 max-w-screen-xl mx-auto">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              className="flex justify-between items-end mb-6 md:mb-8"
+            >
+              <div>
+                <h2 className="text-sm font-semibold tracking-widest uppercase text-sage mb-4">Wellness Journal</h2>
+                <h3 className="text-4xl font-serif font-semibold text-dark">Latest Insights</h3>
+              </div>
+              <Link href="#blog" className="hidden md:inline-flex items-center text-sage font-medium group hover:text-sage/80 transition-colors">
+                View all articles <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            >
+              {[
+                { date: "Oct 12, 2026", category: "Mindfulness", title: "5 Morning Rituals for Mental Clarity", img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop" },
+                { date: "Oct 05, 2026", category: "Nutrition", title: "Healing Your Gut: The Foundation of Energy", img: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop" },
+                { date: "Sep 28, 2026", category: "Stress Reduction", title: "Recognizing and Healing from Burnout", img: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&w=800&auto=format&fit=crop" }
+              ].map((post, i) => (
+                <motion.div key={i} variants={fadeUp} className="group cursor-pointer">
+                  <div className="aspect-[4/3] rounded-3xl overflow-hidden relative mb-6">
+                    <Image src={post.img} alt={post.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                  <div className="flex items-center text-xs font-semibold uppercase tracking-wider text-sage mb-3 space-x-3">
+                    <span>{post.category}</span>
+                    <span className="w-1 h-1 rounded-full bg-beige"></span>
+                    <span className="text-dark/40">{post.date}</span>
+                  </div>
+                  <h4 className="text-2xl font-serif font-semibold text-dark group-hover:text-sage transition-colors mb-4">{post.title}</h4>
+                  <span className="text-dark/60 font-medium group-hover:text-sage transition-colors text-sm flex items-center">
+                    Read more <ArrowRight className="ml-2 w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* CTA SECTION */}
+        <section id="contact" className="scroll-mt-32 relative py-10 md:py-16 overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <Image 
+              src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?q=80&w=2000&auto=format&fit=crop" 
+              alt="Calm Nature" 
+              fill 
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-sage/90 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-dark/20" />
+          </div>
+
+          <div className="container relative z-10 px-6 max-w-screen-md mx-auto text-center">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-serif font-semibold text-white mb-4"
+            >
+              Start Your Wellness Journey Today
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-lg text-white mb-6 font-medium"
+            >
+              Take the first step towards a more balanced, energized, and fulfilled life.
+            </motion.p>
+            
+            <motion.form 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-3xl p-8 max-w-md mx-auto shadow-2xl text-left"
+            >
+              <h3 className="text-2xl font-serif text-dark font-semibold mb-4">Request a Consultation</h3>
+              <div className="space-y-4 mb-4">
+                <input type="text" placeholder="Full Name" className="w-full bg-cream border border-beige rounded-xl px-4 py-3 text-dark focus:outline-none focus:border-sage transition-colors" />
+                <input type="email" placeholder="Email Address" className="w-full bg-cream border border-beige rounded-xl px-4 py-3 text-dark focus:outline-none focus:border-sage transition-colors" />
+              </div>
+              <button className="w-full rounded-xl bg-sage hover:bg-sage/90 text-white font-medium py-4 transition-colors">
+                Book Free Call
+              </button>
+            </motion.form>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
