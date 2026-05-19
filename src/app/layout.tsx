@@ -65,6 +65,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { FloatingContact } from "@/components/layout/FloatingContact";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -74,6 +76,7 @@ export default function RootLayout({
     <html lang="en" className={cn("font-sans scroll-smooth", inter.variable, playfair.variable)}>
       <body className="antialiased min-h-screen bg-cream text-dark">
         {children}
+        <FloatingContact />
       </body>
     </html>
   );
